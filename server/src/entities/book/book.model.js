@@ -1,26 +1,32 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const bookSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        trim: true,
-        maxlength: 50,
-    },
-    chapters: [{ type: Schema.Types.ObjectId, ref:'Chapter' }]
-}, {timestamps: true});
+const KanjiRecordSchema = new mongoose.Schema({
+    symbol: String,
+    reading: [String],
+    definition: String,
+    examples: [String]
+});
 
-const chapterSchema = new mongoose.Schema({
-    name: String,
-    bookId: {type: Schema.Types.ObjectId, ref: 'Book'},
-    content: String,
+const ContentSchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    vocabulary: String,
+    examples: [String],
+    kanji: [KanjiRecordSchema],
 })
 
-const Book = mongoose.model('Book', bookSchema);
-const Chapter = mongoose.model('Chapter', chapterSchema);
+const ChapterSchema = new mongoose.Schema({
+    name: String,
+    order: Number,
+    content: [ContentSchema],
+});
 
-module.exports = {
-    Book,
-    Chapter,
-};
+const BookSchema = new mongoose.Schema({
+    name: String,
+    level: String,
+    chapters: [ChapterSchema]
+});
+
+const Book = mongoose.model('Book', BookSchema);
+
+module.exports = Book;

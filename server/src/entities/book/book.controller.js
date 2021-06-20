@@ -42,7 +42,6 @@ const updateOne = async (req, res) => {
 const createOne = async (req, res) => {
     try {
         const doc = await Book.create(req.body);
-        res.status(201).json({ results: doc });
         if (!doc) {
             return res.status(404).json({ error: 'Book not found'});
         }
