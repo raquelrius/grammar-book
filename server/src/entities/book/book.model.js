@@ -10,7 +10,6 @@ const KanjiRecordSchema = new mongoose.Schema({
 const ContentSchema = new mongoose.Schema({
     title: String,
     description: String,
-    vocabulary: String,
     examples: [String],
     kanji: [KanjiRecordSchema],
 })
@@ -19,6 +18,7 @@ const ChapterSchema = new mongoose.Schema({
     name: String,
     order: Number,
     content: [ContentSchema],
+    vocabulary: [String],
 });
 
 const BookSchema = new mongoose.Schema({

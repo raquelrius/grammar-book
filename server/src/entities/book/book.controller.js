@@ -54,9 +54,10 @@ const createOne = async (req, res) => {
 
 const removeOne = async (req, res) => {
     try {
-        const doc = await Book.remove({
-            _id: req.params._id
+        const doc = await Book.deleteOne({
+            _id: req.params.id
         }).lean().exec();
+        res.status(200).json({ deleted: doc });
     } catch (e) {
         console.log(e);
     }
