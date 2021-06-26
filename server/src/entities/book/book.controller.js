@@ -1,6 +1,6 @@
 const Book = require('./book.model');
 
-const getMany = async(req, res) => {
+const getAllBooks = async(req, res) => {
     try {
         const docs = await Book.find().lean().exec();
         res.status(200).json({results: docs});
@@ -9,7 +9,7 @@ const getMany = async(req, res) => {
     }
 }
 
-const getOne = async (req, res) => {
+const getBook = async (req, res) => {
     try {
         const doc = await Book.findOne({ _id: req.params.id }).exec();
         if (!doc) {
@@ -22,7 +22,7 @@ const getOne = async (req, res) => {
     }
 }
 
-const updateOne = async (req, res) => {
+const updateBook = async (req, res) => {
     try {
         const doc = await Book.findOneAndUpdate(
     { _id: req.params.id },
@@ -39,7 +39,7 @@ const updateOne = async (req, res) => {
     }
 }
 
-const createOne = async (req, res) => {
+const createBook = async (req, res) => {
     try {
         const doc = await Book.create(req.body);
         if (!doc) {
@@ -52,16 +52,27 @@ const createOne = async (req, res) => {
     }
 };
 
+const removeBook = async (req, res) => {
+    try {
+        const doc = await Book.deleteOne({
+            _id: req.params.id
+        }).lean().exec();
+        res.status(200).json({ deleted: doc });
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 const addChapter = async (req, res) => {
     try {
         const book = await Book.findOneAndUpdate(
             { _id: req.params.id },
             {$push: { chapters: req.body}}
-            ).exec();
+        ).exec();
         res.status(200).json({ results: book });
     } catch (e) {
-      console.log(e);
-      res.status(500).end();
+        console.log(e);
+        res.status(500).end();
     }
 }
 
@@ -73,27 +84,16 @@ const removeChapter = async (req, res) => {
         ).exec();
         res.status(200).json({ results: book });
     } catch (e) {
-      res.status(500).end();
-    }
-}
-
-const removeOne = async (req, res) => {
-    try {
-        const doc = await Book.deleteOne({
-            _id: req.params.id
-        }).lean().exec();
-        res.status(200).json({ deleted: doc });
-    } catch (e) {
-        console.log(e);
+        res.status(500).end();
     }
 }
 
 module.exports = {
-    getMany,
-    createOne,
+    getAllBooks,
+    createBook,
     addChapter,
-    getOne,
-    removeOne,
+    getBook,
+    removeBook,
     removeChapter,
-    updateOne
+    updateBook
 }
