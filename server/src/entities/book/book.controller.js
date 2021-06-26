@@ -52,6 +52,31 @@ const createOne = async (req, res) => {
     }
 };
 
+const addChapter = async (req, res) => {
+    try {
+        const book = await Book.findOneAndUpdate(
+            { _id: req.params.id },
+            {$push: { chapters: req.body}}
+            ).exec();
+        res.status(200).json({ results: book });
+    } catch (e) {
+      console.log(e);
+      res.status(500).end();
+    }
+}
+
+const removeChapter = async (req, res) => {
+    try {
+        const book = await Book.findOneAndUpdate(
+            { _id: req.params.id },
+            {$pull : {chapters: {_id : req.params.chapterId }}}
+        ).exec();
+        res.status(200).json({ results: book });
+    } catch (e) {
+      res.status(500).end();
+    }
+}
+
 const removeOne = async (req, res) => {
     try {
         const doc = await Book.deleteOne({
@@ -66,7 +91,9 @@ const removeOne = async (req, res) => {
 module.exports = {
     getMany,
     createOne,
+    addChapter,
     getOne,
     removeOne,
+    removeChapter,
     updateOne
 }

@@ -7,5 +7,7 @@ books.get('/', bookController.getMany);
 books.post('/', bookController.createOne);
 books.get('/:id', bookController.getOne);
 books.delete('/:id', bookController.removeOne);
+books.post('/:id', bookController.addChapter);
+books.delete('/:id/:chapterId', bookController.removeChapter);
 
 module.exports = books;
