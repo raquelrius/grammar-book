@@ -5,7 +5,7 @@ module.exports = {
         password: 'admin1234',
         port: 27017,
         host: 'localhost',
-        db: 'grammarbooks',
+        db: 'grammarbook',
     },
     mongoUrl() {
         const { user, password, port, host, db } = this.database;
