@@ -36,7 +36,24 @@ const book = {
                     "description": "Esta frase indica que S1 es un ejemplo específico de S2.",
                     "examples": [],
                     "kanji": []
-                }
+                },
+                {
+                    "title": "にわたって",
+                    "description": "Indica que el hablante piensa que se trata de una gran cantidad de tiempo o espacio.",
+                    "examples": ["しゅじゅつは３時間にわたって行われた。"],
+                    "kanji": []
+                },
+                {
+                    "title": "うちに",
+                    "description": "Expresa cómo se llega de forma natural a una situación a través de hacer algo repetidamente.",
+                    "examples": ["しゅじゅつは３時間にわたって行われた。"],
+                    "kanji": [{
+                        "symbol": "謎",
+                        "reading": ["なぞ"],
+                        "definition": "Enigma",
+                        "examples": []
+                    }]
+                },
             ]
         }
     ]
